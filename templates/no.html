@@ -1,0 +1,121 @@
+{%load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>feedback</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+    .sa{
+      color:rgba(255,255,255,0.9);
+      height:50px;
+      float:left;
+    }
+    .end{
+width:100%;
+height:300px;
+background-color:rgba(0,0,0,0.4);
+border: 1px solid rgba(255,255,255,0.5);
+border-radius:20px;
+margin-top:50px;
+}
+.content
+{
+text-align:center;
+color:rgba(255,255,255,0.9);
+width:20%;
+height:150px;
+float:left;
+margin:20px 20px 0px 30px;
+border-radius:6px;
+padding:10px;
+}
+#A
+{
+  color:rgba(255,255,255,0.9);
+  text-align: center;
+  padding-top: 240px;
+}
+ #circle
+ {
+   border-radius:50% 50% 50% 50%;  
+   width:130px;
+   height:130px;
+}
+#button{
+  transform: translate(-50%,-50%)
+}
+.btn{
+  border: 2px solid #fff;
+  padding: 12px 50px 12px 50px;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.6s ease;
+  font-size: 25px;
+}
+.btn:hover{
+  background-color: #fff;
+  color: #000;
+  font-size:30px;
+
+}
+  </style>
+</head>
+
+<body>
+<div style="width: 100%;margin-top: 0px;height: 80px; border-bottom: 5px solid #5BFF07;background-color:rgba(188,133,247,0.9);"> 
+<h1 class="sa" style="font-family: cursive; color: #fff;margin-top: 0px;">BOT BROTHERS</h1>
+<img  class="sa"src="{% static 'logo.jpg' %}" id="logo" style="margin-top: 0px; width: 80px;height: 80px;">
+  <div class="sa" id = "button" style="float: right;margin-top:50px; ">
+  <a href="/" class="btn"> <b>HOME</b> </a>
+  </div>
+</div>
+
+
+<u style="color:#289EED  "><h1 align="center" style="font-size: 80px;color: #289EED;font-family: comic san ms;">Sorry for your inconvenience</h1>
+</u> <img  align="center" src="{% static 'sorry.jpg' %}" style="width: 500px;height: 200px;margin-left: 33%;">
+<div align="center" style="font-family: sans-serif; font-size:40px;color: #289EED ">we will try our best next time</div>
+
+<div class="end">
+<div class="content">
+<img src="{% static 'ashish.jpg' %}" id="circle">
+<p class="ass">
+Ashish Jain <br>
+1703010036 <br>
+CSE 3rd year <br>
+</p>
+</div>
+<div class="content">
+<img src="{% static 'ravi.jpg' %}" id="circle">
+<p class="ass">
+Ravi Karan Yadav <br>
+1703010156 <br>
+CSE 3rd year <br>
+</p>
+</div>
+<div class="content">
+<p class="ass">
+Follow us <br>
+<ul class="follow" >
+<li><i class="fa fa-youtube-play" style="font-size:20px"></i> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspyoutube</li>
+<li><i class="fa fa-twitter" style="font-size:24px"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspTwitter</li>
+<li><i class="fa fa-snapchat" style="font-size:24px"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSnapchat</li>
+<li><i class="fa fa-skype" style="font-size:24px"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSkype</li>
+</ul>
+</p>
+</div>
+<div class="content">
+<i class="fa fa-male" style="font-size:36px;"></i><br><br>
+      24x7 Help<br>
+Have a query and need help?<br>
+contact on the help line number<br>
+(011-6510097)
+</div>
+<p id="A">PROJECT FOR TECHATHLON'20 <br> FEEDBACK BOT</p>
+</div>
+
+
+</body>
+</html>
