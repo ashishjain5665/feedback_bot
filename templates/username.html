@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>feedbackbot</title>
+		<style>
+	@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+.login-box{
+	border: 20px;
+	border-color: white;
+	width: 280px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	color: white;
+}
+.login-box 
+{	
+	border: 3px solid #fff;
+	padding: 7px 50px 40px 50px;
+	margin-top: 20px;
+ }
+#sa{	
+	float: left;
+	font-size: 40px;
+	border-bottom: 6px solid #5BFF07;
+	margin-bottom: 50px;
+	margin-left: 70px;
+	padding: 1
+}
+.textbox{
+	width: 100%;
+	overflow: hidden;
+	font-size: 20px;
+	padding: 8px 0;
+	margin: 8px 0;
+	border-bottom: 2px solid #5BFF07;
+}
+.textbox i{
+	width: 26px;
+	float: left;
+	text-align: centre;
+}
+.textbox:hover{
+	border-bottom: 2px solid #fff
+}
+.textbox input{
+	border: none;
+	outline: white;
+	background: none;
+	color: white;
+	font-size: 18px;
+	width: 80%;
+	float: left;
+	margin: 0 10px;
+}
+	
+.btn{
+	width: 100%;
+	background: none;
+	border: 2px solid #fff;
+	color: white;
+	padding: 15px 40px 15px 40px;
+	font-size:20px;
+	cursor: pointer;
+	margin-right: 10px;
+	
+}
+.btn:hover{
+	background-color: #fff;
+	color: #000;
+	font-size: 22px;
+}
+body{
+	background-color:rgba(188,133,247,0.9);
+}
+#logo{
+	float: top;
+	margin-top:0;
+	border-radius:50% 50% 50% 50%;  
+    width:130px;
+    height:130px;
+    margin-left: 60px;
+}
+.end{
+width:100%;
+height:300px;
+background-color:rgba(0,0,0,0.4);
+border: 1px solid rgba(255,255,255,0.5);
+border-radius:20px;
+margin-top:580px;
+}
+.content
+{
+text-align:center;
+color:rgba(255,255,255,0.9);
+width:20%;
+height:150px;
+float:left;
+margin:20px 20px 0px 30px;
+border-radius:6px;
+padding:10px;
+}
+#A
+{
+	color:rgba(255,255,255,0.9);
+	text-align: center;
+	padding-top: 240px;
+}
+ #circle
+ {
+   border-radius:50% 50% 50% 50%;  
+   width:130px;
+   height:130px;
+}
+   .sa{
+      color:rgba(255,255,255,0.9);
+      height:50px;
+      float:left;
+      border-color: #fff;
+      margin-left: 10px;
+      padding:0px;
+    }
+</style>
+
+</head>
+<body>
+<div style="width: 100%;height: 80px; border-bottom: 5px solid #5BFF07"> 
+
+<h1 class="sa" style="font-family: cursive; color: #fff;">BOT BROTHERS</h1>
+<img  class="sa"src="{% static 'logo.jpg' %}" id="logo" style="width: 80px;height: 80px;">
+  
+</div>
+<div class="login-box">
+<img  src="{% static 'logo.jpg' %}" id="logo">
+<h1 style="" id="sa"> LOGIN </h1>
+
+<div class = "textbox">
+<i class="fa fa-user" aria-hidden="true"></i>
+<form action="/welcome/" method="POST">
+{% csrf_token %}
+<input type = "text" placeholder = "Username" name="param" >
+</div>
+
+<div class= "textbox">
+<i class="fa fa-lock" aria-hidden="true"></i>
+<input type="password" placeholder="Password" name="pass" >
+</div>
+
+<input type="submit" class="btn" value="Sign in">
+<p></p>
+</form>
+<button onclick="location.href='{% url 'home' %}'" class="btn" >Home</button>
+</div>
+{% if data %}
+<script type="text/javascript">alert("user does not exists!!  please fill the username carefully.")</script>
+{% endif %}
+{% if dat %}
+<script type="text/javascript">alert("incorrect password!!  please fill the password carefully.")</script>
+{% endif %}
+
+<div class="end">
+<div class="content">
+<img src="{% static 'ashish.jpg' %}" id="circle">
+<p class="ass">
+Ashish Jain <br>
+1703010036 <br>
+CSE 3rd year <br>
+</p>
+</div>
+<div class="content">
+<img src="{% static 'ravi.jpg' %}" id="circle">
+<p class="ass">
+Ravi Karan Yadav <br>
+1703010156 <br>
+CSE 3rd year <br>
+</p>
+</div>
+<div class="content">
+<p class="ass">
+Follow us <br>
+<ul class="follow" >
+<li><i class="fa fa-youtube-play" style="font-size:20px"></i> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspyoutube</li>
+<li><i class="fa fa-twitter" style="font-size:24px"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspTwitter</li>
+<li><i class="fa fa-snapchat" style="font-size:24px"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSnapchat</li>
+<li><i class="fa fa-skype" style="font-size:24px"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSkype</li>
+</ul>
+</p>
+</div>
+<div class="content">
+<i class="fa fa-male" style="font-size:36px;"></i><br><br>
+      24x7 Help<br>
+Have a query and need help?<br>
+contact on the help line number<br>
+(011-6510097)
+</div>
+<p id="A">PROJECT FOR TECHATHLON'20 <br> FEEDBACK BOT</p>
+</div>
+	{{data}}
+</body>
+</html>
