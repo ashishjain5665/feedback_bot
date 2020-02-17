@@ -2,10 +2,15 @@
 #### A machine learning bot that can take your feedback through voice commands 
 ### Technologies used
 1)HTML
+
 2)CSS
+
 3)JAVASCRIPT
+
 4)DJANGO
+
 5)MACHINE LEARNING
+
 6)gTTS
 
 ### DataBase
