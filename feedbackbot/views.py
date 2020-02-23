@@ -8,12 +8,14 @@ import speech_recognition as sr
 from gtts import gTTS
 import datetime
 from . import settings
+################################################  Speak function  ##############################################
 def speak(text):
     tts = gTTS(text=text, lang="en")
     filename = "voice.mp3"
     tts.save(filename)
     playsound.playsound(filename)
     os.remove(filename)
+################################################ audio function(record voice)  ####################################
 def get_audio():
     sample_rate = 48000
     chunk_size = 2048 
@@ -30,7 +32,7 @@ def get_audio():
             print("sorry")
             text="sorry"
     return text
-
+################################################# function to clean the reviews in the sata set ###################################
 def clean(review):
     review = re.sub('[^a-zA-Z]', ' ', review)
     review = review.lower()
@@ -39,15 +41,15 @@ def clean(review):
     review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))-{'not','worst','bad'}]
     review = ' '.join(review)
     return review
-
-def without(request):                               #for initialize
+######################################################## for initialize the page ###################################################
+def without(request):                               
     return render(request , 'home.html')
-
-def tran_to_botstart(request):                      #for start button
+######################################################## for start button in home page ##############################################
+def tran_to_botstart(request):                      
     return render(request , 'botstart.html')
 
-    
-def output(request):                            #onloadding botstart
+################################################### onloadding the botstart page ####################################################    
+def output(request):                            
     speak("hello  i am sam,  i am your feedback assistant today    ,please speak your review")   
     data = get_audio()
     if data=="sorry":
