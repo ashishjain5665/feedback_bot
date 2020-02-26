@@ -60,7 +60,7 @@ def output(request):
     f.write(data)
     f.close()
     return render(request , 'check.html',{'data':data})
-
+################################################## function for prediction (review analysis) #########################################
 def predict(data):
     import pandas as pd
     import numpy as np
@@ -92,22 +92,22 @@ def predict(data):
         corpus.append(review)
     
     
-    # Creating the Bag of Words model
+    ################### Creating the Bag of Words model
     cv = CountVectorizer(max_features = 3000)
     X = cv.fit_transform(corpus).toarray()
     y = dataset.iloc[:, 1].values
     
-    # Splitting the dataset into the Training set and Test set
+    ################### Splitting the dataset into the Training set and Test set
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
     
-    # Fitting Naive Bayes to the Training set
+    ################### Fitting Naive Bayes to the Training set
     classifier = GaussianNB()
     classifier.fit(X_train, y_train)
     
-    # Predicting the Test set results
+    ################### Predicting the Test set results
     y_pred = classifier.predict(X_test)
     
-    # Making the Confusion Matrix
+    ################### Making the Confusion Matrix
     cm = confusion_matrix(y_test, y_pred)
     text = clean(data)
     text = cv.transform([text]).toarray()
@@ -116,7 +116,7 @@ def predict(data):
         return "positive"
     else:
         return "negative"
-        
+################################################## update data base and store the review ########################################        
 def update_database(data):
     speak("we are analysing your review. please wait.")
     import mysql.connector
@@ -136,7 +136,7 @@ def update_database(data):
     mycursor.executemany(sqlform, opinions)
     mydb.commit()
     return ana
-
+########################################### Based on analysis (positive or negative) transfer the user to relative page ################### 
 def yes(request):
     data=request.POST.get('param')
     ana = update_database(data)
@@ -144,13 +144,11 @@ def yes(request):
     if ana == "positive":
         return render(request , 'yes.html',{'data':ana})
     return render(request , 'no.html',{'data':ana})
-    
-
+######################################### if voice is not recognized correctly then again take the voice ###############################    
 def tran_to_again(request):                      #for again button
     return render(request , 'again.html')
-
-    
-def again(request):                            #onloadding botstart
+####################################### onloading the again.html page #############################################################
+def again(request):                            
     speak("please again speak your review")
     data = get_audio()
     if data=="sorry":
@@ -161,8 +159,10 @@ def again(request):                            #onloadding botstart
     f.write(data)
     f.close()
     return render(request , 'check.html',{'data':data})
+############################################## transfer to login page ##############################################################
 def tran_to_username(request):
     return render(request ,'username.html' )
+############################################## if user credential is correct transfer it to next page ###############################
 def logincheck(request):
     username = request.POST.get('param')
     password = request.POST.get('pass')
@@ -196,6 +196,7 @@ def logincheck(request):
             return render(request , 'username.html',{'dat':'invalid password'})
     else:
         return render(request , 'username.html',{'data':'user does not exists'})
+############################################ take voice(yes or no) and do appropriate action ######################################################
 def spe(request):
     speak("please say yes or no to confirm")
     data=get_audio()
