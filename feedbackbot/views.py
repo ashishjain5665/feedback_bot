@@ -22,44 +22,34 @@ def get_audio():
     r = sr.Recognizer()  
     with sr.Microphone(sample_rate = sample_rate,  
                             chunk_size = chunk_size) as source: 
-        r.adjust_for_ambient_noise(source) 
+        r.adjust_for_ambient_noise(source)                                  #adjusting ambient noise 
         print ("Say Something")
-        audio = r.listen(source) 
+        audio = r.listen(source)                                            #listening voice
         try: 
-            text = r.recognize_google(audio) 
+            text = r.recognize_google(audio)                                #recognize voice using google
             print( "you said: " +text)
         except:
             print("sorry")
-            text="sorry"
-    return text
-################################################# function to clean the reviews in the sata set ###################################
-def clean(review):
-    review = re.sub('[^a-zA-Z]', ' ', review)
-    review = review.lower()
-    review = review.split()
-    ps = PorterStemmer()
-    review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))-{'not','worst','bad'}]
-    review = ' '.join(review)
-    return review
+    return "sorry"
 ######################################################## for initialize the page ###################################################
 def without(request):                               
-    return render(request , 'home.html')
+    return render(request , 'home.html')                        #render to home
 ######################################################## for start button in home page ##############################################
 def tran_to_botstart(request):                      
-    return render(request , 'botstart.html')
+    return render(request , 'botstart.html')                    #render to botstart page
 
 ################################################### onloadding the botstart page ####################################################    
 def output(request):                            
     speak("hello  i am sam,  i am your feedback assistant today    ,please speak your review")   
     data = get_audio()
-    if data=="sorry":
+    if data=="sorry":                                                               #data is not recognized
         speak("we did'nt uderstand please again speak")
         data=get_audio()
-    f=open(os.path.join(settings.BASE_DIR,'assets\\hii.txt'),'r+')
-    f.truncate()
-    f.write(data)
+    f=open(os.path.join(settings.BASE_DIR,'assets\\hii.txt'),'r+')                  #pick up hii.txt from static files
+    f.truncate()                                                                    #deleting all the content of file
+    f.write(data)                                                                   #write review in file
     f.close()
-    return render(request , 'check.html',{'data':data})
+    return render(request , 'check.html',{'data':data})                             #render to check page
 ################################################## function for prediction (review analysis) #########################################
 def predict(data):
     import pandas as pd
@@ -75,38 +65,34 @@ def predict(data):
     from sklearn.model_selection import train_test_split
     from sklearn.naive_bayes import GaussianNB
     from sklearn.metrics import confusion_matrix
+    
+    ############################### function to clean the reviews in the sata set 
     def clean(review):
-        review = re.sub('[^a-zA-Z]', ' ', review)
+        review = re.sub('[^a-zA-Z]', ' ', review)                                               #removing unusable character
         review = review.lower()
         review = review.split()
-        ps = PorterStemmer()
-        review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))-{'not','worst','bad'}]
+        ps = PorterStemmer()                                                                    #stemmer object
+        review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))-{'not','worst','bad'}]    #taking only useful words
         review = ' '.join(review)
         return review
+    ################ reading the dataset
     dataset = pd.read_csv(os.path.join(settings.BASE_DIR,'assets\\rr.tsv'), delimiter = '\t', quoting = 3)
-
     corpus = []
     for i in range(0, 1001):
         review = dataset['Review'][i]
         review = clean(review)
         corpus.append(review)
-    
-    
     ################### Creating the Bag of Words model
     cv = CountVectorizer(max_features = 3000)
     X = cv.fit_transform(corpus).toarray()
     y = dataset.iloc[:, 1].values
-    
     ################### Splitting the dataset into the Training set and Test set
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
-    
     ################### Fitting Naive Bayes to the Training set
     classifier = GaussianNB()
     classifier.fit(X_train, y_train)
-    
     ################### Predicting the Test set results
     y_pred = classifier.predict(X_test)
-    
     ################### Making the Confusion Matrix
     cm = confusion_matrix(y_test, y_pred)
     text = clean(data)
@@ -120,21 +106,21 @@ def predict(data):
 def update_database(data):
     speak("we are analysing your review. please wait.")
     import mysql.connector
-    mydb = mysql.connector.connect( host = "localhost", 
+    mydb = mysql.connector.connect( host = "localhost",                                    #connection with database
                                    user = "root",
                                    passwd = "root", 
                                    database = "feedback")
     mycursor = mydb.cursor()
-    mycursor.execute("select * from opinion")
+    mycursor.execute("select * from opinion")                                               #fetching all the reviews
     myresult = mycursor.fetchall()
     sno = myresult[-1][0]
-    sno=sno+1
+    sno=sno+1                                                                               #increase the sno(primary key)
     s=datetime.date.today()
-    ana  = predict(data)
+    ana  = predict(data)                                                                    #predicting the review
     sqlform = "Insert into opinion(sno,date,feedback,analysis) values(%s,%s,%s,%s)"
     opinions = [(sno,s,data,ana)]
-    mycursor.executemany(sqlform, opinions)
-    mydb.commit()
+    mycursor.executemany(sqlform, opinions)                                                  #inserting the new review into the 
+    mydb.commit()                                                                            #commit the queriers
     return ana
 ########################################### Based on analysis (positive or negative) transfer the user to relative page ################### 
 def yes(request):
